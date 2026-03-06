@@ -33,20 +33,21 @@ void main() {
                   child: Row(
                     children: [
                       Text(
-                        "Enter username",
+                        "Enter username:",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                        ), //TextStyle
+                      ), //Text
                     ],
-                  ),
-                ),
+                  ), //Row
+                ), //Padding
+
                 TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                    ),
+                    ), //OutlineInputBorder
                     hintText: "Use Email Address",
                     prefixIcon: Icon(Icons.person),
                     suffixIcon: Icon(Icons.visibility_off),
@@ -70,6 +71,7 @@ void main() {
                   ),
                 ),
                 SizedBox(height: 0),
+
                 TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
