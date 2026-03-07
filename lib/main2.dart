@@ -24,7 +24,7 @@ void main() {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset('assets/jumialogo.png', width: 100, height: 50),
+                Image.asset('assets/jumialogo.png', width: 150, height: 100),
                 //Text("Login screen"),
                 SizedBox(height: 30),
 
@@ -48,7 +48,8 @@ void main() {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    hintText: "Use Email Address",
+                    hintText: "example@email.com",
+                    hintStyle: TextStyle(color: Colors.grey),
                     prefixIcon: Icon(Icons.person, color: Colors.grey),
                   ),
                 ),
@@ -74,9 +75,16 @@ void main() {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    hintText: "Enter password", //color: Colors.grey,
+                    hintText: "Enter valid password",
+                    hintStyle: TextStyle(color: Colors.grey),
                     suffixIcon: Icon(Icons.visibility_off, color: Colors.grey),
                   ),
+                ),
+
+                //SizedBox(height: 30),
+                Text(
+                  "*Password must be at least 8 characters long and contain a mix of uppercase letters, lowercase letters, numbers, and special characters.",
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
                 SizedBox(height: 30),
 
@@ -100,7 +108,8 @@ void main() {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    hintText: "Confirm Password",
+                    hintText: "Repeat password",
+                    hintStyle: TextStyle(color: Colors.grey),
                     //prefixIcon: Icon(Icons.lock),
                     suffixIcon: Icon(Icons.visibility_off, color: Colors.grey),
                   ),
@@ -115,7 +124,7 @@ void main() {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
-                    "Signup",
+                    "Sign up",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
