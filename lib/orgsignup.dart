@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/configs/colors.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 
 void main() {
   runApp(
@@ -134,6 +136,26 @@ void main() {
                   ),
                 ),
                 SizedBox(height: 20),
+
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Already have an account?"),
+                      SizedBox(width: 5),
+                      GestureDetector(
+                        child: Text(
+                          "Login",
+                          style: TextStyle(color: secondaryColor),
+                        ),
+                        onTap: () {
+                          Get.toNamed("/login");
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

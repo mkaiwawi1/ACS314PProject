@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/configs/colors.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 
 void main() {
   runApp(
@@ -50,7 +52,7 @@ void main() {
                     ), //OutlineInputBorder
                     hintText: "Use Email Address",
                     prefixIcon: Icon(Icons.person),
-                    suffixIcon: Icon(Icons.visibility_off),
+                    // suffixIcon: Icon(Icons.visibility_off),
                   ),
                 ),
                 SizedBox(height: 30),
@@ -79,6 +81,7 @@ void main() {
                     ),
                     hintText: "Enter Password",
                     prefixIcon: Icon(Icons.lock),
+                    suffixIcon: Icon(Icons.visibility_off),
                   ),
                 ),
                 SizedBox(height: 30),
@@ -95,22 +98,28 @@ void main() {
                 //),
                 //color: Colors.blue,
                 // ),
-                Container(
-                  height: 50,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    "Login",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w900,
+                GestureDetector(
+                  child: Container(
+                    height: 50,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: primaryColor,
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    textAlign: TextAlign.center,
+                    child: Text(
+                      "Login",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w900,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
+                  onTap: () {
+                    // Handle login logic here
+                    Get.offAndToNamed("/homescreen");
+                  },
                 ),
                 SizedBox(height: 20),
 
