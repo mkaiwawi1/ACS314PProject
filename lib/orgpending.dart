@@ -10,9 +10,9 @@ void main() {
       home: Scaffold(
         backgroundColor: backgroundColor,
         appBar: AppBar(
-          title: Text("Profile", style: TextStyle(color: Colors.white)),
+          title: Text("Profile", style: TextStyle(color: profileColor)),
           centerTitle: true,
-          backgroundColor: profileColor,
+          backgroundColor: profileColor1,
         ),
 
         //Sizebox(height: 10),
@@ -28,7 +28,7 @@ void main() {
                 padding: EdgeInsets.all(20),
                 margin: EdgeInsets.symmetric(horizontal: 20),
                 decoration: BoxDecoration(
-                  color: profileColor2,
+                  color: profileColor4,
                   borderRadius: BorderRadius.circular(10),
                 ),
 
@@ -37,7 +37,7 @@ void main() {
                   children: [
                     Text(
                       "Email: mel@gmail.com",
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: TextStyle(fontSize: 16, color: profileColor3),
                     ),
                   ],
                 ),
@@ -59,7 +59,7 @@ void main() {
                   children: [
                     Text(
                       "Email: mel@gmail.com",
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: TextStyle(fontSize: 16, color: profileColor4),
                     ),
                   ],
                 ),
@@ -72,7 +72,7 @@ void main() {
                 padding: EdgeInsets.all(20),
                 margin: EdgeInsets.symmetric(horizontal: 20),
                 decoration: BoxDecoration(
-                  color: profileColor2,
+                  color: profileColor3,
                   borderRadius: BorderRadius.circular(10),
                 ),
 
@@ -81,7 +81,7 @@ void main() {
                   children: [
                     Text(
                       "Email: mel@gmail.com",
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: TextStyle(fontSize: 16, color: profileColor1),
                     ),
                   ],
                 ),
@@ -94,7 +94,7 @@ void main() {
                 padding: EdgeInsets.all(20),
                 margin: EdgeInsets.symmetric(horizontal: 20),
                 decoration: BoxDecoration(
-                  color: profileColor2,
+                  color: profileColor4,
                   borderRadius: BorderRadius.circular(10),
                 ),
 
@@ -103,7 +103,7 @@ void main() {
                   children: [
                     Text(
                       "Email: mel@gmail.com",
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: TextStyle(fontSize: 16, color: profileColor3),
                     ),
                   ],
                 ),
@@ -114,14 +114,14 @@ void main() {
         ),
 
         bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Colors.white,
-          color: primaryColor,
-          buttonBackgroundColor: secondaryColor1,
+          backgroundColor: profileColor1,
+          color: profileColor1,
+          buttonBackgroundColor: profileColor3,
           items: <Widget>[
-            Icon(Icons.dashboard, size: 30, color: secondaryColor1),
-            Icon(Icons.category, size: 30, color: secondaryColor1),
-            Icon(Icons.shopping_cart, size: 30, color: secondaryColor1),
-            Icon(Icons.account_circle, size: 30, color: secondaryColor1),
+            Icon(Icons.home_filled, size: 40, color: profileColor),
+            Icon(Icons.check_circle_outline, size: 40, color: profileColor),
+            Icon(Icons.hourglass_bottom, size: 40, color: profileColor),
+            Icon(Icons.account_circle, size: 40, color: profileColor),
           ],
           onTap: (index) {
             //Handle button tap
