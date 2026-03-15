@@ -1,0 +1,101 @@
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: GestureDetector(
+                  child: Container(
+                    height: 50,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      //color: secondaryColor1,
+                      border: Border.all(color: profileColor1, width: 2),
+                    ),
+
+                    child: Text(
+                      "Logout",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w900,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                  child: Container(
+                    height: 50,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: secondaryColor2,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      "Logout",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w900,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+
+
+               Container(
+                // padding: EdgeInsets.all(20),
+                //margin: EdgeInsets.symmetric(horizontal: 20),
+                //decoration: BoxDecoration(
+                //color: profileColor2,
+                //borderRadius: BorderRadius.circular(10),
+                //),
+
+                //child: Column(
+                //crossAxisAlignment: CrossAxisAlignment.start,
+                //children: [
+                //Text(
+                //"Email: mel@gmail.com",
+                // style: TextStyle(fontSize: 16, color: Colors.white),
+                //),
+                // ],
+                //),
+                ),
+
+
+                ottomNavigationBar: BottomNavyBar(
+   selectedIndex: _selectedIndex,
+   showElevation: true, // use this to remove appBar's elevation
+   onItemSelected: (index) => setState(() {
+              _selectedIndex = index;
+              _pageController.animateToPage(index,
+                  duration: Duration(milliseconds: 300), curve: Curves.ease);
+    }),
+   items: [
+     BottomNavyBarItem(
+       icon: Icon(Icons.apps),
+       title: Text('Home'),
+       activeColor: Colors.red,
+     ),
+     BottomNavyBarItem(
+         icon: Icon(Icons.people),
+         title: Text('Users'),
+         activeColor: Colors.purpleAccent
+     ),
+     BottomNavyBarItem(
+         icon: Icon(Icons.message),
+         title: Text('Messages'),
+         activeColor: Colors.pink
+     ),
+     BottomNavyBarItem(
+         icon: Icon(Icons.settings),
+         title: Text('Settings'),
+         activeColor: Colors.blue
+     ),
+   ],
+)
