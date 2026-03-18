@@ -10,4 +10,7 @@ var routes = {
   GetPage(name: '/', page: () => LoginScreen()),
   GetPage(name: '/signup', page: () => SignupScreen()),
   GetPage(name: '/homescreen', page: () => HomeScreen()),
+  //GetPage(icon: Icons.home_filled, page: () => HomeScreen()),
+  //GetPage(icon: Icons.login, page: () => LoginScreen()),
+  //GetPage(icon: Icons.app_registration, page: () => SignupScreen()),
 };

@@ -183,7 +183,7 @@ void main() {
         bottomNavigationBar: CurvedNavigationBar(
           backgroundColor: profileColor1,
           color: profileColor1,
-          buttonBackgroundColor: profileColor3,
+          buttonBackgroundColor: profileColor2,
           items: <Widget>[
             Icon(Icons.home_filled, size: 40, color: profileColor),
             Icon(Icons.check_circle_outline, size: 40, color: profileColor),

@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/configs/colors.dart';
+import 'package:flutter_application_1/controllers/logincontroller.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+
+LoginController logincontroller = Get.put(LoginController());
+TextEditingController usernameController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
 
 void main() {
   runApp(
@@ -46,6 +52,7 @@ void main() {
                 ), //Padding
 
                 TextField(
+                  controller: usernameController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -74,14 +81,27 @@ void main() {
                 ),
                 SizedBox(height: 0),
 
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                Obx(
+                  () => TextField(
+                    obscureText: logincontroller.isPasswordVisible.value,
+                    controller: passwordController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      hintText: "Enter Password",
+                      prefixIcon: Icon(Icons.lock),
+                      suffixIcon: GestureDetector(
+                        child: Icon(
+                          logincontroller.isPasswordVisible.value
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onTap: () {
+                          logincontroller.togglePasswordVisibility();
+                        },
+                      ),
                     ),
-                    hintText: "Enter Password",
-                    prefixIcon: Icon(Icons.lock),
-                    suffixIcon: Icon(Icons.visibility_off),
                   ),
                 ),
                 SizedBox(height: 30),
@@ -118,7 +138,21 @@ void main() {
                   ),
                   onTap: () {
                     // Handle login logic here
-                    Get.offAndToNamed("/homescreen");
+                    bool success = logincontroller.login(
+                      usernameController.text,
+                      passwordController.text,
+                    );
+                    if (success) {
+                      Get.offAndToNamed("/homescreen");
+                    } else {
+                      Get.snackbar(
+                        "Login Failed",
+                        "Invalid username or password",
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Colors.redAccent,
+                        colorText: Colors.white,
+                      );
+                    }
                   },
                 ),
                 SizedBox(height: 20),

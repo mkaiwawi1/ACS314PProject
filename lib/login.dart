@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/configs/colors.dart';
+import 'package:flutter_application_1/controllers/logincontroller.dart';
 import 'package:get/get.dart';
+
+LoginController logincontroller = Get.put(LoginController());
+TextEditingController usernameController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -50,6 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ), //Padding
 
               TextField(
+                controller: usernameController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -79,6 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 0),
 
               TextField(
+                controller: passwordController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -122,7 +129,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 onTap: () {
                   // Handle login logic here
-                  Get.offAndToNamed("/homescreen");
+                  bool success = logincontroller.login(
+                    usernameController.text,
+                    passwordController.text,
+                  );
+                  if (success) {
+                    Get.offAndToNamed("/homescreen");
+                  } else {
+                    Get.snackbar(
+                      "Login Failed",
+                      "Invalid username or password",
+                      snackPosition: SnackPosition.BOTTOM,
+                      backgroundColor: Colors.redAccent,
+                      colorText: Colors.white,
+                    );
+                  }
                 },
               ),
               SizedBox(height: 20),
