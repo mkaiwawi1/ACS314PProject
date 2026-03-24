@@ -15,7 +15,7 @@ void main() {
       debugShowCheckedModeBanner: false,
 
       home: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: backgroundColor,
 
         // appBar: AppBar(
         //   backgroundColor: Colors.amberAccent,
@@ -32,9 +32,9 @@ void main() {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset('assets/jumialogo.png'),
+                Image.asset('assets/8ballblue.jpg', height: 150, width: 150),
                 //Text("Login screen"),
-                SizedBox(height: 30),
+                SizedBox(height: 20),
 
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
@@ -123,7 +123,7 @@ void main() {
                     height: 50,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: primaryColor,
+                      color: profileColor4,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
@@ -143,17 +143,18 @@ void main() {
                       passwordController.text,
                     );
                     if (success) {
-                      Get.offAndToNamed("/homescreen");
+                      Get.offAndToNamed('/homescreen');
                     } else {
                       Get.snackbar(
                         "Login Failed",
                         "Invalid username or password",
                         snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: Colors.redAccent,
-                        colorText: Colors.white,
+                        backgroundColor: profileColor2,
+                        colorText: profileColor,
                       );
                     }
                   },
+                  //),
                 ),
                 SizedBox(height: 20),
 
@@ -164,11 +165,11 @@ void main() {
                     children: [
                       Text("Don't have an account?"),
                       SizedBox(width: 5),
-                      Text("Create", style: TextStyle(color: secondaryColor)),
+                      Text("Create", style: TextStyle(color: profileColor1)),
                       Spacer(),
                       Text("Forgot password?"),
                       SizedBox(width: 5),
-                      Text("Reset", style: TextStyle(color: secondaryColor)),
+                      Text("Reset", style: TextStyle(color: profileColor1)),
                       // TextButton(onPressed: () {}, child: Text("Sign Up")),
                     ],
                   ),

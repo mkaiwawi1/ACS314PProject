@@ -185,14 +185,34 @@ void main() {
           color: profileColor1,
           buttonBackgroundColor: profileColor2,
           items: <Widget>[
-            Icon(Icons.home_filled, size: 40, color: profileColor),
-            Icon(Icons.check_circle_outline, size: 40, color: profileColor),
-            Icon(Icons.hourglass_bottom, size: 40, color: profileColor),
-            Icon(Icons.account_circle, size: 40, color: profileColor),
+            GestureDetector(
+              onTap: () => Get.toNamed("/homescreen"),
+              child: Icon(Icons.home_filled, size: 40, color: profileColor),
+            ),
+
+            GestureDetector(
+              onTap: () => Get.toNamed("/completed"),
+              child: Icon(
+                Icons.check_circle_outline,
+                size: 40,
+                color: profileColor,
+              ),
+            ),
+
+            GestureDetector(
+              onTap: () => Get.toNamed("/pending"),
+              child: Icon(
+                Icons.hourglass_bottom,
+                size: 40,
+                color: profileColor,
+              ),
+            ),
+
+            GestureDetector(
+              onTap: () => Get.toNamed("/profile"),
+              child: Icon(Icons.account_circle, size: 40, color: profileColor),
+            ),
           ],
-          onTap: (index) {
-            //Handle button tap
-          },
         ),
       ),
     ),

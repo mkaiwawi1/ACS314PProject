@@ -18,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundColor,
 
       // appBar: AppBar(
       //   backgroundColor: Colors.amberAccent,
@@ -35,9 +35,9 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset('assets/jumialogo.png'),
+              Image.asset('assets/8ballblue.jpg', height: 150, width: 150),
               //Text("Login screen"),
-              SizedBox(height: 30),
+              SizedBox(height: 20),
 
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
@@ -84,15 +84,27 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 0),
 
-              TextField(
-                controller: passwordController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
+              Obx(
+                () => TextField(
+                  obscureText: logincontroller.isPasswordVisible.value,
+                  controller: passwordController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    hintText: "Enter Password",
+                    prefixIcon: Icon(Icons.lock),
+                    suffixIcon: GestureDetector(
+                      child: Icon(
+                        logincontroller.isPasswordVisible.value
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onTap: () {
+                        logincontroller.togglePasswordVisibility();
+                      },
+                    ),
                   ),
-                  hintText: "Enter Password",
-                  prefixIcon: Icon(Icons.lock),
-                  suffixIcon: Icon(Icons.visibility_off),
                 ),
               ),
               SizedBox(height: 30),
@@ -114,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 50,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: primaryColor,
+                    color: profileColor4,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
@@ -127,21 +139,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                onTap: () {
+                onTap: () => () {
                   // Handle login logic here
                   bool success = logincontroller.login(
                     usernameController.text,
                     passwordController.text,
                   );
                   if (success) {
-                    Get.offAndToNamed("/homescreen");
+                    Get.offAndToNamed('/homescreen');
                   } else {
                     Get.snackbar(
                       "Login Failed",
                       "Invalid username or password",
                       snackPosition: SnackPosition.BOTTOM,
-                      backgroundColor: Colors.redAccent,
-                      colorText: Colors.white,
+                      backgroundColor: profileColor2,
+                      colorText: profileColor,
                     );
                   }
                 },
@@ -155,19 +167,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Text("Don't have an account?"),
                     SizedBox(width: 5),
-                    GestureDetector(
-                      child: Text(
-                        "Create",
-                        style: TextStyle(color: secondaryColor),
-                      ),
-                      onTap: () {
-                        Get.toNamed("/signup");
-                      },
-                    ),
+                    Text("Create", style: TextStyle(color: profileColor1)),
                     Spacer(),
                     Text("Forgot password?"),
                     SizedBox(width: 5),
-                    Text("Reset", style: TextStyle(color: secondaryColor)),
+                    Text("Reset", style: TextStyle(color: profileColor1)),
                     // TextButton(onPressed: () {}, child: Text("Sign Up")),
                   ],
                 ),

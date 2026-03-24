@@ -9,7 +9,7 @@ void main() {
       debugShowCheckedModeBanner: false,
 
       home: Scaffold(
-        backgroundColor: secondaryColor1,
+        backgroundColor: backgroundColor,
 
         // appBar: AppBar(
         //   backgroundColor: Colors.amberAccent,
@@ -48,11 +48,12 @@ void main() {
                 TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
+                      borderSide: BorderSide(color: profileColor),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     hintText: "example@email.com",
-                    hintStyle: TextStyle(color: Colors.grey),
-                    prefixIcon: Icon(Icons.person, color: Colors.grey),
+                    hintStyle: TextStyle(color: profileColor4),
+                    //prefixIcon: Icon(Icons.person, color: profileColor4),
                   ),
                 ),
                 SizedBox(height: 30),
@@ -78,15 +79,18 @@ void main() {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     hintText: "Enter valid password",
-                    hintStyle: TextStyle(color: Colors.grey),
-                    suffixIcon: Icon(Icons.visibility_off, color: Colors.grey),
+                    hintStyle: TextStyle(color: profileColor4),
+                    suffixIcon: Icon(
+                      Icons.visibility_off,
+                      color: profileColor4,
+                    ),
                   ),
                 ),
 
                 //SizedBox(height: 30),
                 Text(
                   "*Password must be at least 8 characters long and contain a mix of uppercase letters, lowercase letters, numbers, and special characters.",
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                  style: TextStyle(fontSize: 14, color: profileColor2),
                 ),
                 SizedBox(height: 30),
 
@@ -111,9 +115,12 @@ void main() {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     hintText: "Repeat password",
-                    hintStyle: TextStyle(color: Colors.grey),
+                    hintStyle: TextStyle(color: profileColor4),
                     //prefixIcon: Icon(Icons.lock),
-                    suffixIcon: Icon(Icons.visibility_off, color: Colors.grey),
+                    suffixIcon: Icon(
+                      Icons.visibility_off,
+                      color: profileColor4,
+                    ),
                   ),
                 ),
                 SizedBox(height: 30),
@@ -122,7 +129,7 @@ void main() {
                   height: 50,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: primaryColor,
+                    color: profileColor4,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
@@ -147,7 +154,10 @@ void main() {
                       GestureDetector(
                         child: Text(
                           "Login",
-                          style: TextStyle(color: secondaryColor),
+                          style: TextStyle(
+                            color: profileColor1,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         onTap: () {
                           Get.toNamed("/login");
