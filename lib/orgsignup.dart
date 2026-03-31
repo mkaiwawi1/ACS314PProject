@@ -1,7 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/configs/colors.dart';
+import 'package:flutter_application_1/login.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_application_1/controllers/signupcontroller.dart';
+
+final emailController = TextEditingController();
+final fullnameController = TextEditingController();
+final passwordController = TextEditingController();
+final confirmPasswordController = TextEditingController();
+final signupController = SignupController();
 
 void main() {
   runApp(
@@ -26,7 +38,7 @@ void main() {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset('assets/jumialogo.png', width: 150, height: 100),
+                Image.asset('assets/8ballblue.jpg', width: 150, height: 100),
                 //Text("Login screen"),
                 SizedBox(height: 30),
 
@@ -54,6 +66,32 @@ void main() {
                     hintText: "example@email.com",
                     hintStyle: TextStyle(color: profileColor4),
                     //prefixIcon: Icon(Icons.person, color: profileColor4),
+                  ),
+                ),
+                SizedBox(height: 30),
+
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Enter full name:",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    hintText: "Enter full name",
+                    hintStyle: TextStyle(color: profileColor4),
                   ),
                 ),
                 SizedBox(height: 30),
@@ -125,13 +163,49 @@ void main() {
                 ),
                 SizedBox(height: 30),
 
-                Container(
-                  height: 50,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: profileColor4,
+                MaterialButton(
+                  onPressed: () async {
+                    if (emailController.text.isEmpty ||
+                        fullnameController.text.isEmpty ||
+                        passwordController.text.isEmpty ||
+                        confirmPasswordController.text.isEmpty) {
+                      Get.snackbar(
+                        "Error",
+                        "Please fill in all fields",
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                      return;
+                    }
+
+                    final response = await http.get(
+                      Uri.parse(
+                        "https://10.0.2.2/myapi/rootfolder/create.php?emailadd=${emailController.text.trim()}&fullname=Admin block&pass1=${passwordController.text}&pass2=${confirmPasswordController.text}",
+                      ),
+                    );
+                    if (response.statusCode == 200) {
+                      final serverData = jsonDecode(response.body);
+                      if (serverData['success'] == true) {
+                        Get.snackbar(
+                          "Success",
+                          "Account created successfully",
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                        Get.toNamed('/login');
+                      } else {
+                        Get.snackbar(
+                          "Error",
+                          "Failed to create account",
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                      }
+                    }
+                    //print(response.body);
+                  },
+                  color: profileColor4,
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
+
                   child: Text(
                     "Sign up",
                     style: TextStyle(
@@ -139,7 +213,6 @@ void main() {
                       fontSize: 16,
                       fontWeight: FontWeight.w900,
                     ),
-                    textAlign: TextAlign.center,
                   ),
                 ),
                 SizedBox(height: 20),
@@ -152,6 +225,9 @@ void main() {
                       Text("Already have an account?"),
                       SizedBox(width: 5),
                       GestureDetector(
+                        onTap: () {
+                          Get.toNamed('/login');
+                        },
                         child: Text(
                           "Login",
                           style: TextStyle(
@@ -159,9 +235,6 @@ void main() {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        onTap: () {
-                          Get.toNamed("/login");
-                        },
                       ),
                     ],
                   ),

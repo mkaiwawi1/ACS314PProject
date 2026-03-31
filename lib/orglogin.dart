@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/configs/colors.dart';
 import 'package:flutter_application_1/controllers/logincontroller.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:flutter_application_1/configs/routes.dart';
+import 'package:http/http.dart' as http;
 
 LoginController logincontroller = Get.put(LoginController());
 TextEditingController usernameController = TextEditingController();
@@ -106,55 +110,73 @@ void main() {
                 ),
                 SizedBox(height: 30),
 
-                // MaterialButton(
-                // onPressed: () {},
-                //child: Text(
-                //"Login",
-                //style: TextStyle(
-                //color: Colors.white,
-                //fontWeight: FontWeight.w900,
-                //fontSize: 30,
-                // ),
-                //),
-                //color: Colors.blue,
-                // ),
-                GestureDetector(
-                  child: Container(
-                    height: 50,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: profileColor4,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      "Login",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w900,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  onTap: () {
-                    // Handle login logic here
-                    bool success = logincontroller.login(
-                      usernameController.text,
-                      passwordController.text,
-                    );
-                    if (success) {
-                      Get.offAndToNamed('/homescreen');
-                    } else {
+                MaterialButton(
+                  onPressed: () async {
+                    if (usernameController.text.isEmpty ||
+                        passwordController.text.isEmpty) {
+                      // bool success = logincontroller.login(
+                      //   usernameController.text,
+                      //   passwordController.text,
+                      // );
+                      // if (success) {
+                      //   Get.offAndToNamed('/homescreen');
+                      // } else {
                       Get.snackbar(
                         "Login Failed",
-                        "Invalid username or password",
+                        "Please fill in all fields",
                         snackPosition: SnackPosition.BOTTOM,
                         backgroundColor: profileColor2,
                         colorText: profileColor,
                       );
+                    } else {
+                      final response = await http.get(
+                        Uri.parse(
+                          'https://10.0.2.2/myapi/login.php?email=${usernameController.text}&pass1=${passwordController.text}',
+                        ),
+                      );
+                      print(response.body);
+                      if (response.statusCode == 200) {
+                        final serverData = jsonDecode(response.body);
+                        if (serverData['code'] == 1) {
+                          String full_name =
+                              serverData['userdetails'][0]['full_name'];
+                          print("Welcome, $full_name!");
+                          Get.offAndToNamed('/homescreen');
+                        } else {
+                          Get.snackbar(
+                            "Login Failed",
+                            serverData["message"],
+                            snackPosition: SnackPosition.BOTTOM,
+                            backgroundColor: profileColor2,
+                            colorText: profileColor,
+                          );
+                        }
+                      } else {
+                        Get.snackbar(
+                          "Login Failed",
+                          "Invalid username or password",
+                          //"Server error: ${response.statusCode}",
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: profileColor2,
+                          colorText: profileColor,
+                        );
+                      }
                     }
                   },
-                  //),
+                  color: profileColor4,
+                  minWidth: 70,
+                  height: 50,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    "Login",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 10,
+                    ),
+                  ),
                 ),
                 SizedBox(height: 20),
 
@@ -165,7 +187,15 @@ void main() {
                     children: [
                       Text("Don't have an account?"),
                       SizedBox(width: 5),
-                      Text("Create", style: TextStyle(color: profileColor1)),
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed('/signup');
+                        },
+                        child: Text(
+                          "Create",
+                          style: TextStyle(color: profileColor1),
+                        ),
+                      ),
                       Spacer(),
                       Text("Forgot password?"),
                       SizedBox(width: 5),

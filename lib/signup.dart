@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/configs/colors.dart';
+import 'package:flutter_application_1/orgsignup.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_application_1/controllers/signupcontroller.dart';
+import 'package:get/get.dart';
+
+final emailController = TextEditingController();
+final passwordController = TextEditingController();
+final confirmPasswordController = TextEditingController();
+final signupController = SignupController();
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -31,7 +40,7 @@ class _SignupScreenState extends State<SignupScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset('assets/jumialogo.png', width: 150, height: 100),
+              Image.asset('assets/8ballblue.jpg', width: 150, height: 100),
               //Text("Login screen"),
               SizedBox(height: 30),
 
@@ -59,6 +68,32 @@ class _SignupScreenState extends State<SignupScreen> {
                   hintText: "example@email.com",
                   hintStyle: TextStyle(color: profileColor4),
                   //prefixIcon: Icon(Icons.person, color: profileColor4),
+                ),
+              ),
+              SizedBox(height: 30),
+
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: Row(
+                  children: [
+                    Text(
+                      "Enter full name:",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  hintText: "Enter full name",
+                  hintStyle: TextStyle(color: profileColor4),
                 ),
               ),
               SizedBox(height: 30),
@@ -124,11 +159,29 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               SizedBox(height: 30),
 
-              Container(
-                height: 50,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: profileColor4,
+              MaterialButton(
+                onPressed: () async {
+                  if (emailController.text.isEmpty ||
+                      fullnameController.text.isEmpty ||
+                      passwordController.text.isEmpty ||
+                      confirmPasswordController.text.isEmpty) {
+                    Get.snackbar(
+                      "Error",
+                      "Please fill in all fields",
+                      snackPosition: SnackPosition.BOTTOM,
+                    );
+                    return;
+                  }
+
+                  final response = await http.get(
+                    Uri.parse(
+                      "https://10.0.2.2/myapi/rootfolder/create.php?emailadd=${emailController.text.trim()}&fullname=Admin block&pass1=${passwordController.text}&pass2=${confirmPasswordController.text}",
+                    ),
+                  );
+                  print(response.body);
+                },
+                color: profileColor4,
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
@@ -138,7 +191,6 @@ class _SignupScreenState extends State<SignupScreen> {
                     fontSize: 16,
                     fontWeight: FontWeight.w900,
                   ),
-                  textAlign: TextAlign.center,
                 ),
               ),
               SizedBox(height: 20),

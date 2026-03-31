@@ -3,7 +3,7 @@ import 'package:get/state_manager.dart';
 class LoginController extends GetxController {
   var username;
   var password;
-  var isPasswordVisible = false.obs;
+  var isPasswordVisible = true.obs;
   login(user, pass) {
     username = user;
     password = pass;
