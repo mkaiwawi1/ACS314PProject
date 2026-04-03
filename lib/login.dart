@@ -129,17 +129,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   } else {
                     final response = await http.get(
                       Uri.parse(
-                        'https://10.0.2.2/myapi/login.php?email=${usernameController.text}&pass1=${passwordController.text}',
+                        'http://10.0.2.2/myapi/login.php?emailadd=${usernameController.text}&pass1=${passwordController.text}',
                       ),
                     );
-                    print(response.body);
+                    //),
+                    //);
+                    //print(response.body);
                     if (response.statusCode == 200) {
                       final serverData = jsonDecode(response.body);
                       if (serverData['code'] == 1) {
-                        String full_name =
-                            serverData['userdetails'][0]['full_name'];
-                        print("Welcome, $full_name!");
-                        Get.offAndToNamed('/homescreen');
+                        String emailadd =
+                            serverData['userdetails'][0]['emailadd'];
+                        //     serverData['userdetails'][0]['full_name'];
+                        // print("Welcome, $full_name!");
+                        Get.toNamed('/signup');
                       } else {
                         Get.snackbar(
                           "Login Failed",
@@ -170,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w900,
-                    fontSize: 10,
+                    fontSize: 16,
                   ),
                 ),
               ),

@@ -6,11 +6,13 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_application_1/controllers/signupcontroller.dart';
 import 'package:get/get.dart';
+import 'dart:convert';
 
-final emailController = TextEditingController();
-final passwordController = TextEditingController();
-final confirmPasswordController = TextEditingController();
-final signupController = SignupController();
+TextEditingController emailController = TextEditingController();
+TextEditingController fullnameController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
+TextEditingController confirmPasswordController = TextEditingController();
+//final signupController = SignupController();
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -25,14 +27,6 @@ class _SignupScreenState extends State<SignupScreen> {
     return Scaffold(
       backgroundColor: backgroundColor,
 
-      // appBar: AppBar(
-      //   backgroundColor: Colors.amberAccent,
-      //  title: Text(
-      //  "Login Screen",
-      //style: TextStyle(color: Colors.white, fontSize: 20),
-      // ),
-      // centerTitle: true,
-      // ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
@@ -60,6 +54,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
 
               TextField(
+                controller: emailController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: profileColor),
@@ -88,6 +83,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
 
               TextField(
+                controller: fullnameController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -114,6 +110,8 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
 
               TextField(
+                controller: passwordController,
+                //obscureText: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -124,7 +122,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
 
-              //SizedBox(height: 30),
               Text(
                 "*Password must be at least 8 characters long and contain a mix of uppercase letters, lowercase letters, numbers, and special characters.",
                 style: TextStyle(fontSize: 14, color: profileColor2),
@@ -147,6 +144,8 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
 
               TextField(
+                controller: confirmPasswordController,
+                //obscureText: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -175,10 +174,27 @@ class _SignupScreenState extends State<SignupScreen> {
 
                   final response = await http.get(
                     Uri.parse(
-                      "https://10.0.2.2/myapi/rootfolder/create.php?emailadd=${emailController.text.trim()}&fullname=Admin block&pass1=${passwordController.text}&pass2=${confirmPasswordController.text}",
+                      "https://10.0.2.2/myapi/rootfolder/create.php?emailadd=${emailController.text.trim()}&fullname=${fullnameController.text.trim()}&pass1=${passwordController.text}&pass2=${confirmPasswordController.text}",
                     ),
                   );
-                  print(response.body);
+
+                  if (response.statusCode == 200) {
+                    final serverData = jsonDecode(response.body);
+                    if (serverData['success'] == true) {
+                      Get.snackbar(
+                        "Success",
+                        "Account created successfully",
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                      Get.toNamed('/');
+                    } else {
+                      Get.snackbar(
+                        "Error",
+                        serverData['message'] ?? "Failed to create account",
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                    }
+                  }
                 },
                 color: profileColor4,
                 shape: RoundedRectangleBorder(
@@ -211,7 +227,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ),
                       onTap: () {
-                        Get.toNamed("/login");
+                        Get.toNamed("/");
                       },
                     ),
                   ],

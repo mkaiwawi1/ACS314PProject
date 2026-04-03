@@ -9,11 +9,10 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_application_1/controllers/signupcontroller.dart';
 
-final emailController = TextEditingController();
-final fullnameController = TextEditingController();
-final passwordController = TextEditingController();
-final confirmPasswordController = TextEditingController();
-final signupController = SignupController();
+TextEditingController emailController = TextEditingController();
+TextEditingController fullnameController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
+TextEditingController confirmPasswordController = TextEditingController();
 
 void main() {
   runApp(
@@ -58,6 +57,7 @@ void main() {
                 ),
 
                 TextField(
+                  controller: emailController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide(color: profileColor),
@@ -86,6 +86,7 @@ void main() {
                 ),
 
                 TextField(
+                  controller: fullnameController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -112,6 +113,8 @@ void main() {
                 ),
 
                 TextField(
+                  controller: passwordController,
+                  obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -148,6 +151,8 @@ void main() {
                 ),
 
                 TextField(
+                  controller: confirmPasswordController,
+                  obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -179,7 +184,7 @@ void main() {
 
                     final response = await http.get(
                       Uri.parse(
-                        "https://10.0.2.2/myapi/rootfolder/create.php?emailadd=${emailController.text.trim()}&fullname=Admin block&pass1=${passwordController.text}&pass2=${confirmPasswordController.text}",
+                        "https://10.0.2.2/myapi/rootfolder/create.php?emailadd=${emailController.text.trim()}&fullname=${fullnameController.text.trim()}&pass1=${passwordController.text}&pass2=${confirmPasswordController.text}",
                       ),
                     );
                     if (response.statusCode == 200) {
