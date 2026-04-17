@@ -1,12 +1,14 @@
-class myPending {
-  String? name;
-  String? description;
-  String? due;
+class MyPending {
+  String? lesson_name;
+  String? lesson_desc;
+  String? due_date;
   String? image;
-  myPending({
-    required this.name,
-    required this.description,
-    required this.due,
+  MyPending({
+    required this.lesson_name,
+    required this.lesson_desc,
+    required this.due_date,
     required this.image,
   });
 }
+//@override
+

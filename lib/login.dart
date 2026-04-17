@@ -115,8 +115,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 30),
 
-              MaterialButton(
-                onPressed: () async {
+              GestureDetector(
+                onTap: () async {
                   if (usernameController.text.isEmpty ||
                       passwordController.text.isEmpty) {
                     Get.snackbar(
@@ -129,11 +129,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   } else {
                     final response = await http.get(
                       Uri.parse(
-                        'http://10.0.2.2/myapi/login.php?emailadd=${usernameController.text}&pass1=${passwordController.text}',
+                        'http://localhost/myapi/login.php?emailadd=${usernameController.text}&pass1=${passwordController.text}',
                       ),
                     );
-                    //),
-                    //);
                     //print(response.body);
                     if (response.statusCode == 200) {
                       final serverData = jsonDecode(response.body);
@@ -142,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             serverData['userdetails'][0]['emailadd'];
                         //     serverData['userdetails'][0]['full_name'];
                         // print("Welcome, $full_name!");
-                        Get.toNamed('/signup');
+                        Get.offAllNamed('/homescreen');
                       } else {
                         Get.snackbar(
                           "Login Failed",
@@ -164,16 +162,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                   }
                 },
-                color: profileColor4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  "Login",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 16,
+                child: Container(
+                  width: double.infinity,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: profileColor4,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Login",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
                 ),
               ),

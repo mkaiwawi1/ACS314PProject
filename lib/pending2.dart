@@ -7,12 +7,7 @@ import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-var lessonName = [
-  //myPending(name: "MAT212", description: "Integral Calc", due:"2024-06-30", image: "assets/8ballblue.jpg"),
-  //myPending(name: "CSC214", description: "Data Structures", due:"2024-07-15", image: "assets/8ballblue.jpg"),
-  //myPending(name: "PHY211", description: "Electricity and Magnetism", due:"2024-08-01", image: "assets/8ballblue.jpg"),
-];
-bool isLoading = false;
+//List<MyPending> lessonName = [];
 
 class PendingScreen2 extends StatefulWidget {
   const PendingScreen2({super.key});
@@ -21,30 +16,42 @@ class PendingScreen2 extends StatefulWidget {
 }
 
 class _PendingScreen2State extends State<PendingScreen2> {
+  bool isLoading = true;
+  List<MyPending> lessonName = [];
+
   @override
   void initState() {
     super.initState();
     getpending();
   }
 
-  getpending() async {
+  dynamic getpending() async {
+    // setState(() {
+    //   isLoading = true;
+    // });
     var response = await http.get(
-      Uri.parse("http://localhost/pendings/readpend.php"),
+      Uri.parse("http://10.0.2.2/myapi/rootfolder/pendings/readpend.php"),
     );
+    print(response.body);
     if (response.statusCode == 200) {
       var serverData = jsonDecode(response.body);
       var pendingsData = serverData['data'];
+
+      //lessonName.clear();
       for (var lesson in pendingsData) {
         lessonName.add(
-          myPending(
-            name: lesson['name'],
-            description: lesson['description'],
-            due: lesson['due'],
+          MyPending(
+            lesson_name: lesson['lesson_name'],
+            lesson_desc: lesson['lesson_desc'],
+            due_date: lesson['due_date'],
             image: lesson['image'],
           ),
         );
       }
     } else {
+      // setState(() {
+      //   isLoading = false;
+      // });
       Get.snackbar(
         "Error",
         "Server Error",
@@ -55,32 +62,30 @@ class _PendingScreen2State extends State<PendingScreen2> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? ListView.builder(
-            itemCount: lessonName.length,
-            itemBuilder: (context, index) {
-              return Row(
-                children: [
-                  Image.network(
-                    "http://localhost/rootfolder/pendings/lessonimages" +
-                        lessonName[index].image!,
-                    width: 50,
-                    height: 50,
-                  ),
-                  Column(
-                    children: [
-                      Text(lessonName[index].name!),
-                      Text(lessonName[index].description!),
-                      Text(lessonName[index].due!),
-                      Text("Pending"),
-                    ],
-                  ),
-                ],
-              );
-            },
-          )
-        : Center(child: CircularProgressIndicator());
-    // Widget circularProgressIndicator = CircularProgressIndicator();
-    // return circularProgressIndicator;
+    return ListView.builder(
+      itemCount: lessonName.length,
+      itemBuilder: (context, index) {
+        return Row(
+          children: [
+            Image.network(
+              "http://localhost/myapi/rootfolder/pendings/lessonimages/" +
+                  lessonName[index].image!,
+              width: 50,
+              height: 50,
+            ),
+            Column(
+              children: [
+                Text(lessonName[index].lesson_name!),
+                Text(lessonName[index].lesson_desc!),
+                Text(lessonName[index].due_date!),
+                Text("Pending"),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+    //: Center(child: Text("No data available"));
+    // : Center(child: CircularProgressIndicator());
   }
 }

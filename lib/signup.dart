@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/configs/colors.dart';
-import 'package:flutter_application_1/orgsignup.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:http/http.dart' as http;
@@ -8,6 +7,7 @@ import 'package:flutter_application_1/controllers/signupcontroller.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 
+SignupController signupcontroller = Get.put(SignupController());
 TextEditingController emailController = TextEditingController();
 TextEditingController fullnameController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
@@ -109,16 +109,26 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
 
-              TextField(
-                controller: passwordController,
-                //obscureText: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
+              Obx(
+                () => TextField(
+                  obscureText: signupcontroller.isPasswordVisible.value,
+                  controller: passwordController,
+                  //obscureText: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    hintText: "Enter valid password",
+                    hintStyle: TextStyle(color: profileColor4),
+                    suffixIcon: GestureDetector(
+                      child: Icon(
+                        signupcontroller.isPasswordVisible.value
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: profileColor4,
+                      ),
+                    ),
                   ),
-                  hintText: "Enter valid password",
-                  hintStyle: TextStyle(color: profileColor4),
-                  suffixIcon: Icon(Icons.visibility_off, color: profileColor4),
                 ),
               ),
 
@@ -143,17 +153,27 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
 
-              TextField(
-                controller: confirmPasswordController,
-                //obscureText: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
+              Obx(
+                () => TextField(
+                  obscureText: signupcontroller.isPasswordVisible.value,
+                  controller: confirmPasswordController,
+                  //obscureText: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    hintText: "Repeat password",
+                    hintStyle: TextStyle(color: profileColor4),
+                    //prefixIcon: Icon(Icons.lock),
+                    suffixIcon: GestureDetector(
+                      child: Icon(
+                        SignupController().isPasswordVisible.value
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: profileColor4,
+                      ),
+                    ),
                   ),
-                  hintText: "Repeat password",
-                  hintStyle: TextStyle(color: profileColor4),
-                  //prefixIcon: Icon(Icons.lock),
-                  suffixIcon: Icon(Icons.visibility_off, color: profileColor4),
                 ),
               ),
               SizedBox(height: 30),
@@ -174,7 +194,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                   final response = await http.get(
                     Uri.parse(
-                      "https://10.0.2.2/myapi/rootfolder/create.php?emailadd=${emailController.text.trim()}&fullname=${fullnameController.text.trim()}&pass1=${passwordController.text}&pass2=${confirmPasswordController.text}",
+                      "https://10.0.2.2/myapi/rootfolder/create.php?emailadd=${emailController.text}&fullname=${fullnameController.text}&pass1=${passwordController.text}&pass2=${confirmPasswordController.text}",
                     ),
                   );
 

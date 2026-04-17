@@ -1,8 +1,8 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/configs/colors.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:flutter_application_1/login.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -63,6 +63,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: GestureDetector(
+                onTap: () {
+                  Get.toNamed("/settings");
+                },
                 child: Container(
                   height: 50,
                   alignment: Alignment.center,
@@ -113,6 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: GestureDetector(
+                onTap: () => Get.toNamed("/gensett"),
                 child: Container(
                   height: 50,
                   alignment: Alignment.center,
@@ -138,6 +142,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: GestureDetector(
+                onTap: () => Get.toNamed("/help"),
                 child: Container(
                   height: 50,
                   alignment: Alignment.center,
@@ -175,7 +180,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     onTap: () {
-                      Get.toNamed("/signup");
+                      Get.offAndToNamed("/");
                     },
                   ),
                 ],
@@ -185,20 +190,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
 
-      bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: profileColor1,
-        color: profileColor1,
-        buttonBackgroundColor: profileColor2,
-        items: <Widget>[
-          Icon(Icons.home_filled, size: 40, color: profileColor),
-          Icon(Icons.check_circle_outline, size: 40, color: profileColor),
-          Icon(Icons.hourglass_bottom, size: 40, color: profileColor),
-          Icon(Icons.account_circle, size: 40, color: profileColor),
-        ],
-        onTap: (index) {
-          //Handle button tap
-        },
-      ),
+      // bottomNavigationBar: CurvedNavigationBar(
+      //   backgroundColor: profileColor1,
+      //   color: profileColor1,
+      //   buttonBackgroundColor: profileColor2,
+      //   items: <Widget>[
+      //     Icon(Icons.home_filled, size: 40, color: profileColor),
+      //     Icon(Icons.check_circle_outline, size: 40, color: profileColor),
+      //     Icon(Icons.hourglass_bottom, size: 40, color: profileColor),
+      //     Icon(Icons.account_circle, size: 40, color: profileColor),
+      //   ],
+      //   onTap: (index) {
+      //     //Handle button tap
+      //   },
+      // ),
     );
   }
 }
