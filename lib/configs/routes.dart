@@ -1,7 +1,7 @@
 // ignore: unused_import
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/accountsettings.dart';
-import 'package:flutter_application_1/completed.dart';
+import 'package:flutter_application_1/add.dart';
 import 'package:flutter_application_1/dashboard.dart';
 import 'package:flutter_application_1/gensett.dart';
 import 'package:flutter_application_1/help.dart';
@@ -18,7 +18,7 @@ var routes = {
   GetPage(name: '/signup', page: () => SignupScreen()),
   GetPage(name: '/homescreen', page: () => HomeScreen()),
   GetPage(name: '/profile', page: () => ProfileScreen()),
-  GetPage(name: '/completed', page: () => CompletedScreen()),
+  GetPage(name: '/add', page: () => AddLessonScreen()),
   GetPage(name: '/pending2', page: () => PendingScreen2()),
   GetPage(name: '/gensett', page: () => GenSett()),
   GetPage(name: '/settings', page: () => Settings()),

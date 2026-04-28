@@ -127,6 +127,9 @@ class _SignupScreenState extends State<SignupScreen> {
                             : Icons.visibility_off,
                         color: profileColor4,
                       ),
+                      onTap: () {
+                        signupcontroller.togglePasswordVisibility();
+                      },
                     ),
                   ),
                 ),
@@ -167,19 +170,22 @@ class _SignupScreenState extends State<SignupScreen> {
                     //prefixIcon: Icon(Icons.lock),
                     suffixIcon: GestureDetector(
                       child: Icon(
-                        SignupController().isPasswordVisible.value
+                        signupcontroller.isPasswordVisible.value
                             ? Icons.visibility
                             : Icons.visibility_off,
                         color: profileColor4,
                       ),
+                      onTap: () {
+                        signupcontroller.togglePasswordVisibility();
+                      },
                     ),
                   ),
                 ),
               ),
               SizedBox(height: 30),
 
-              MaterialButton(
-                onPressed: () async {
+              GestureDetector(
+                onTap: () async {
                   if (emailController.text.isEmpty ||
                       fullnameController.text.isEmpty ||
                       passwordController.text.isEmpty ||
@@ -187,15 +193,19 @@ class _SignupScreenState extends State<SignupScreen> {
                     Get.snackbar(
                       "Error",
                       "Please fill in all fields",
-                      snackPosition: SnackPosition.BOTTOM,
+                      snackPosition: SnackPosition.TOP,
                     );
                     return;
                   }
 
-                  final response = await http.get(
-                    Uri.parse(
-                      "https://10.0.2.2/myapi/rootfolder/create.php?emailadd=${emailController.text}&fullname=${fullnameController.text}&pass1=${passwordController.text}&pass2=${confirmPasswordController.text}",
-                    ),
+                  final response = await http.post(
+                    Uri.parse("http://localhost/myapi/rootfolder/create.php?"),
+                    body: {
+                      "emailadd": emailController.text,
+                      "fullname": fullnameController.text,
+                      "pass1": passwordController.text,
+                      "pass2": confirmPasswordController.text,
+                    },
                   );
 
                   if (response.statusCode == 200) {
@@ -204,28 +214,31 @@ class _SignupScreenState extends State<SignupScreen> {
                       Get.snackbar(
                         "Success",
                         "Account created successfully",
-                        snackPosition: SnackPosition.BOTTOM,
+                        snackPosition: SnackPosition.TOP,
                       );
                       Get.toNamed('/');
                     } else {
                       Get.snackbar(
                         "Error",
                         serverData['message'] ?? "Failed to create account",
-                        snackPosition: SnackPosition.BOTTOM,
+                        snackPosition: SnackPosition.TOP,
                       );
                     }
                   }
                 },
-                color: profileColor4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  "Sign up",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w900,
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 80),
+                  decoration: BoxDecoration(
+                    color: profileColor4,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    "Sign up",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w900,
+                    ),
                   ),
                 ),
               ),

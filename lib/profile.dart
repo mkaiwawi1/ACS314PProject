@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/configs/colors.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:flutter_application_1/login.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -19,7 +18,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         title: Text("Profile", style: TextStyle(color: profileColor)),
         centerTitle: true,
-        backgroundColor: profileColor1,
+        backgroundColor: appbarColor,
       ),
 
       body: SingleChildScrollView(
@@ -35,16 +34,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   CircleAvatar(
                     radius: 50,
-                    backgroundImage: AssetImage(
-                      'assets/august24(6)cropped.jpg',
-                    ),
+                    backgroundImage: AssetImage('assets/download(7).jpg'),
                   ),
                   SizedBox(width: 40),
 
                   Container(
                     padding: EdgeInsets.all(15),
+
                     decoration: BoxDecoration(
                       border: Border.all(color: profileColor, width: 2),
+                      //color: appbarColor,
                     ),
                     child: Text(
                       "Welcome Back, Mel!",
@@ -71,7 +70,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     //color: secondaryColor1,
-                    border: Border.all(color: profileColor, width: 2),
+                    border: Border.all(color: profileColor),
+                    borderRadius: BorderRadius.circular(10),
+                    color: appbarColor,
                   ),
 
                   child: Text(
@@ -86,7 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             Padding(
               padding: const EdgeInsets.all(15.0),
@@ -96,7 +97,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     //color: secondaryColor1,
-                    border: Border.all(color: profileColor, width: 2),
+                    border: Border.all(color: profileColor),
+                    borderRadius: BorderRadius.circular(10),
+                    color: appbarColor,
                   ),
 
                   child: Text(
@@ -111,7 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             Padding(
               padding: const EdgeInsets.all(15.0),
@@ -122,7 +125,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     //color: secondaryColor1,
-                    border: Border.all(color: profileColor, width: 2),
+                    border: Border.all(color: profileColor),
+                    borderRadius: BorderRadius.circular(10),
+                    color: appbarColor,
                   ),
 
                   child: Text(
@@ -137,7 +142,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             Padding(
               padding: const EdgeInsets.all(15.0),
@@ -148,7 +153,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     //color: secondaryColor1,
-                    border: Border.all(color: profileColor, width: 2),
+                    border: Border.all(color: profileColor),
+                    borderRadius: BorderRadius.circular(10),
+                    color: appbarColor,
                   ),
 
                   child: Text(
@@ -163,7 +170,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 0, 20, 10),
@@ -177,6 +184,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: profileColor,
                         fontSize: 16,
                         fontWeight: FontWeight.w900,
+                        decoration: TextDecoration.underline,
                       ),
                     ),
                     onTap: () {

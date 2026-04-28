@@ -120,6 +120,7 @@ GestureDetector(
   ),
 ),
 
+
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: *");
@@ -136,3 +137,131 @@ if ($res = mysqli_query($con, "select * from pending")) {
 print(json_encode($flag));
 mysqli_close($con);
 ?>
+
+
+
+//my pending
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../models/pendingmodels.dart';
+
+class PendingController extends GetxController {
+  var isLoading = true.obs;
+  var lessons = <MyPending>[].obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    getPending();
+  }
+
+  Future<void> getPending() async {
+    isLoading(true);
+
+    var response = await http.get(
+      Uri.parse("http://localhost/myapi/rootfolder/pendings/readpend.php"),
+    );
+    print(response.body);
+    var decoded = jsonDecode(response.body);
+    //print(decoded['data']);
+    print(decoded['data'].length);
+
+    if (response.statusCode == 200) {
+      var serverData = jsonDecode(response.body);
+      var pendingsData = serverData['data'];
+
+      var lessons = <MyPending>[];
+      lessons.clear();
+      for (var item in pendingsData) {
+        lessons.add(
+          MyPending(
+            lessonName: item['lesson_name'],
+            lessonDesc: item['lesson_desc'],
+            dueDate: item['due_date'],
+            image: item['image'],
+          ),
+        );
+      }
+    } else {
+      Get.snackbar(
+        "Error",
+        "Server Error",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+    Get.snackbar(
+      "Error",
+      "An error occurred: ${response.statusCode}",
+      snackPosition: SnackPosition.BOTTOM,
+    );
+
+    isLoading(false);
+  }
+}
+
+//my org pending
+import 'package:flutter/material.dart';
+import 'package:flutter_application_1/configs/colors.dart';
+//import 'package:flutter_application_1/models/pendingmodels.dart';
+import 'package:get/get.dart';
+import '../controllers/pendingcontroller.dart';
+
+class PendingScreen2 extends StatefulWidget {
+  const PendingScreen2({super.key});
+
+  @override
+  State<PendingScreen2> createState() => _PendingScreen2State();
+}
+
+class _PendingScreen2State extends State<PendingScreen2> {
+  final PendingController controller = Get.put(PendingController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: backgroundColor,
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return const Center(child: Text("Loading..."));
+        }
+
+        if (controller.lessons.isEmpty) {
+          return const Center(child: Text("No pending lessons"));
+        }
+
+        return ListView.builder(
+          itemCount: controller.lessons.length,
+          itemBuilder: (context, index) {
+            var lesson = controller.lessons[index];
+
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Image.network(
+                    "http://10.0.2.2/myapi/rootfolder/pendings/lessonimages/${lesson.image}",
+                    width: 50,
+                    height: 50,
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(lesson.lessonName ?? ''),
+                        Text(lesson.lessonDesc ?? ''),
+                        Text(lesson.dueDate ?? ''),
+                        const Text("Pending"),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      }),
+    );
+  }
+}

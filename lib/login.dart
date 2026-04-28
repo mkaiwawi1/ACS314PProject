@@ -122,9 +122,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     Get.snackbar(
                       "Login Failed",
                       "Please fill in all fields",
-                      snackPosition: SnackPosition.BOTTOM,
-                      backgroundColor: profileColor2,
-                      colorText: profileColor,
+                      snackPosition: SnackPosition.TOP,
+                      // backgroundColor: profileColor2,
+                      // colorText: profileColor,
                     );
                   } else {
                     final response = await http.get(
@@ -136,8 +136,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (response.statusCode == 200) {
                       final serverData = jsonDecode(response.body);
                       if (serverData['code'] == 1) {
-                        String emailadd =
-                            serverData['userdetails'][0]['emailadd'];
+                        // String emailadd =
+                        //     serverData['userdetails'][0]['emailadd'];
                         //     serverData['userdetails'][0]['full_name'];
                         // print("Welcome, $full_name!");
                         Get.offAllNamed('/homescreen');
@@ -145,9 +145,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         Get.snackbar(
                           "Login Failed",
                           serverData["message"],
-                          snackPosition: SnackPosition.BOTTOM,
-                          backgroundColor: profileColor2,
-                          colorText: profileColor,
+                          snackPosition: SnackPosition.TOP,
+                          // backgroundColor: profileColor2,
+                          // colorText: profileColor,
                         );
                       }
                     } else {
@@ -155,9 +155,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         "Login Failed",
                         "Invalid username or password",
                         //"Server error: ${response.statusCode}",
-                        snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: profileColor2,
-                        colorText: profileColor,
+                        snackPosition: SnackPosition.TOP,
+                        // backgroundColor: profileColor2,
+                        // colorText: profileColor,
                       );
                     }
                   }

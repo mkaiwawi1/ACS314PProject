@@ -1,14 +1,24 @@
 class MyPending {
-  String? lesson_name;
-  String? lesson_desc;
-  String? due_date;
-  String? image;
+  String id;
+  String lessonName;
+  String lessonDesc;
+  String dueDate;
+  String image;
   MyPending({
-    required this.lesson_name,
-    required this.lesson_desc,
-    required this.due_date,
+    required this.id,
+    required this.lessonName,
+    required this.lessonDesc,
+    required this.dueDate,
     required this.image,
   });
-}
-//@override
 
+  factory MyPending.fromJson(Map<String, dynamic> json) {
+    return MyPending(
+      id: json['id'].toString(),
+      lessonName: json['lesson_name'] ?? '',
+      lessonDesc: json['lesson_desc'] ?? '',
+      dueDate: json['due_date'] ?? '',
+      image: json['image'] ?? '',
+    );
+  }
+}
