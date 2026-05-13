@@ -4,9 +4,9 @@ import 'package:flutter_application_1/controllers/delete.dart';
 //import "package: http/http.dart" as http;
 import 'package:get/get.dart';
 import '../controllers/pendingcontroller.dart';
-import 'add.dart';
-import '../models/pendingmodels.dart';
-import '/controllers/delete.dart';
+//import 'add.dart';
+//import '../models/pendingmodels.dart';
+//import '/controllers/delete.dart';
 
 class PendingScreen2 extends StatefulWidget {
   const PendingScreen2({super.key});
@@ -19,9 +19,9 @@ class _PendingScreen2State extends State<PendingScreen2> {
   final PendingController controller = Get.put(PendingController());
   final DeleteController deleteController = Get.put(DeleteController());
 
-   void deleteLesson(String id) async {
+  void deleteLesson(String id) async {
     await deleteController.deleteLesson(id);
-    controller.getPending(); 
+    controller.getPending();
   }
 
   @override
@@ -69,7 +69,7 @@ class _PendingScreen2State extends State<PendingScreen2> {
                       width: 50,
                       height: 50,
                       child: Image.network(
-                        "http://localhost/myapi/rootfolder/pendings/lessonimages/chem.jpg",
+                        "http://localhost/myapi/rootfolder/pendings/images.php",
                         width: 50,
                         height: 50,
                         fit: BoxFit.cover,
@@ -99,9 +99,9 @@ class _PendingScreen2State extends State<PendingScreen2> {
                         ],
                       ),
                     ),
-                   
-                       IconButton(
-                       onPressed: () {
+
+                    IconButton(
+                      onPressed: () {
                         // delete lesson
                         deleteController.deleteLesson(lesson.id.toString());
                       },
@@ -110,7 +110,6 @@ class _PendingScreen2State extends State<PendingScreen2> {
                         color: Color.fromARGB(255, 83, 17, 12),
                       ),
                     ),
-                    
                   ],
                 ),
               ),
